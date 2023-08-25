@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="1.css">
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registration Form</h1><br/><br/>
+    
+    <form id="registrationForm" action="2.html" method="post">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <span class="error" id="usernameError"></span>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span class="error" id="emailError"></span>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <span class="error" id="passwordError"></span>
+        </div>
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <span class="error" id="confirmPasswordError"></span>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+        const usernameError = document.getElementById('usernameError');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        const confirmPasswordError = document.getElementById('confirmPasswordError');
+
+        form.addEventListener('submit', function(event) {
+            let isValid = true;
+
+            if (form.username.value.length < 4) {
+                usernameError.textContent = 'Username must be at least 4 characters';
+                isValid = false;
+            } else {
+                usernameError.textContent = '';
+            }
+
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!emailPattern.test(form.email.value)) {
+                emailError.textContent = 'Invalid email format';
+                isValid = false;
+            } else {
+                emailError.textContent = '';
+            }
+
+            if (form.password.value.length < 6) {
+                passwordError.textContent = 'Password must be at least 6 characters';
+                isValid = false;
+            } else {
+                passwordError.textContent = '';
+            }
+
+            if (form.confirmPassword.value !== form.password.value) {
+                confirmPasswordError.textContent = 'Passwords do not match';
+                isValid = false;
+            } else {
+                confirmPasswordError.textContent = '';
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
